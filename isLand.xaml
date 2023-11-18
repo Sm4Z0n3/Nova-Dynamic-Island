@@ -1,0 +1,29 @@
+﻿<Window x:Class="灵动窗Framework.isLand"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:灵动窗Framework"
+        mc:Ignorable="d"
+        Title="isLand" 
+        ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+        WindowStyle="None" 
+        Background="{x:Null}" 
+        Foreground="{x:Null}" 
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" 
+        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Loaded="Window_Loaded" Width="1920" Height="1080">
+    <Border 
+        x:Name="BorderWindow" 
+        Background="#FF020202" 
+        CornerRadius="15,15,15,15" 
+        Width="120" 
+        Height="35" 
+        HorizontalAlignment="Center" 
+        VerticalAlignment="Top">
+
+        <Grid>
+
+        </Grid>
+    </Border>
+</Window>
