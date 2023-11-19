@@ -139,7 +139,7 @@ namespace 灵动窗Core
         static bool IsStartupEnabled()
         {
             string appName = Process.GetCurrentProcess().ProcessName;
-            MessageBox.Show(Directory.GetCurrentDirectory() + "\\"+ appName + ".exe");
+           // MessageBox.Show(Directory.GetCurrentDirectory() + "\\"+ appName + ".exe");
             try
             {
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);

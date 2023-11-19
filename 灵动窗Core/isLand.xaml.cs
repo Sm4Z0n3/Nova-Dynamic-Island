@@ -20,8 +20,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace 灵动窗Core
 {
@@ -45,11 +43,22 @@ namespace 灵动窗Core
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            CenterWindowOnScreen();
             await StartServerAsync();
         }
 
         #region 供调用的函数
         double aawidth = 120;
+        private void CenterWindowOnScreen()
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2);
+            //MessageBox.Show($"Screenh:{screenWidth} | {screenHeight}\nWindow:{windowWidth} | {windowHeight}\nMargin:{Left} | {Top}");
+        }
+
         private void InitializeAnimations()
         {
             opacityAnimation = new DoubleAnimation
@@ -86,94 +95,97 @@ namespace 灵动窗Core
         bool isLabelVisible = false;
         public async Task ShowContent(double AnimationTime, int ShowTime, string body, BitmapImage icon, Brush color,int FSize)
         {
-            double oldhei = BorderWindow.Height;
-            double oldwid = BorderWindow.Width;
-            ElasticEase elasticEase = new ElasticEase
+            if (!isLabelVisible)
             {
-                Oscillations = 1, // Number of oscillations
-                Springiness = 10 // The "springiness" of the animation
-            };
-            DoubleAnimation ContantHeight = new DoubleAnimation
-            {
-                Duration = TimeSpan.FromSeconds(AnimationTime),
-                From = oldhei,
-                To = 0.3,
-                EasingFunction = elasticEase // Apply the ElasticEase
-            };
-            DoubleAnimation ContantWidth = new DoubleAnimation
-            {
-                Duration = TimeSpan.FromSeconds(AnimationTime),
-                From = oldwid,
-                To = 0.3,
-                EasingFunction = elasticEase // Apply the ElasticEase
-            };
-
-            ContantHeight.To = 110;
-            ContantWidth.To = 500;
-            BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
-            BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
-            isLabelVisible = true;
-            Label newLabel = new Label
-            {
-                Content = body,
-                FontSize = FSize,
-                Margin = new Thickness(20),
-                Foreground = color,
-                Height = 110
-            };
-
-            Image newImage = new Image
-            {
-                Source = icon,
-                Width = 88,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            StackPanel stackPanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Margin = new Thickness(20)
-            };
-
-            stackPanel.Children.Add(newImage);
-            stackPanel.Children.Add(newLabel);
-            BorderBody.Children.Add(stackPanel);
-
-            async Task DelayedAnimation()
-            {
-                if (isLabelVisible)
+                double oldhei = BorderWindow.Height;
+                double oldwid = BorderWindow.Width;
+                ElasticEase elasticEase = new ElasticEase
                 {
-                    await Task.Delay(ShowTime * 1000);
-                    ContantHeight.To = oldhei;
-                    ContantWidth.To = oldwid;
-                    ContantHeight.From = 110;
-                    ContantWidth.From = 500;
-                    BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
-                    BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
-                    BorderBody.Children.Remove(stackPanel);
-                    isLabelVisible = false;
+                    Oscillations = 1, // Number of oscillations
+                    Springiness = 10 // The "springiness" of the animation
+                };
+                DoubleAnimation ContantHeight = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromSeconds(AnimationTime),
+                    From = oldhei,
+                    To = 0.3,
+                    EasingFunction = elasticEase // Apply the ElasticEase
+                };
+                DoubleAnimation ContantWidth = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromSeconds(AnimationTime),
+                    From = oldwid,
+                    To = 0.3,
+                    EasingFunction = elasticEase // Apply the ElasticEase
+                };
+
+                ContantHeight.To = 110;
+                ContantWidth.To = 500;
+                BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
+                BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
+                isLabelVisible = true;
+                Label newLabel = new Label
+                {
+                    Content = body,
+                    FontSize = FSize,
+                    Margin = new Thickness(20),
+                    Foreground = color,
+                    Height = 110
+                };
+
+                Image newImage = new Image
+                {
+                    Source = icon,
+                    Width = 88,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                StackPanel stackPanel = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(20)
+                };
+
+                stackPanel.Children.Add(newImage);
+                stackPanel.Children.Add(newLabel);
+                BorderBody.Children.Add(stackPanel);
+
+                async Task DelayedAnimation()
+                {
+                    if (isLabelVisible)
+                    {
+                        await Task.Delay(ShowTime * 1000);
+                        ContantHeight.To = oldhei;
+                        ContantWidth.To = oldwid;
+                        ContantHeight.From = 110;
+                        ContantWidth.From = 500;
+                        BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
+                        BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
+                        BorderBody.Children.Remove(stackPanel);
+                        isLabelVisible = false;
+                    }
                 }
+
+                var delayedTask = DelayedAnimation();
+
+                BorderWindow.MouseDown += async (sender, e) =>
+                {
+                    if (isLabelVisible && e.ChangedButton == MouseButton.Left)
+                    {
+                        ContantHeight.To = oldhei;
+                        ContantWidth.To = oldwid;
+                        ContantHeight.From = 110;
+                        ContantWidth.From = 500;
+                        isLabelVisible = false;
+                        BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
+                        BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
+                        BorderBody.Children.Remove(newLabel);
+                        await Task.Delay(800); // 等待0.8秒，与之前回弹动画的时间相匹配
+                        await delayedTask; // 等待原本的延迟动画完成
+                    }
+                };
+                await delayedTask;
             }
-
-            var delayedTask = DelayedAnimation();
-
-            BorderWindow.MouseDown += async (sender, e) =>
-            {
-                if (isLabelVisible && e.ChangedButton == MouseButton.Left)
-                {
-                    ContantHeight.To = oldhei;
-                    ContantWidth.To = oldwid;
-                    ContantHeight.From = 110;
-                    ContantWidth.From = 500;
-                    isLabelVisible = false;
-                    BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
-                    BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
-                    BorderBody.Children.Remove(newLabel);
-                    await Task.Delay(800); // 等待0.8秒，与之前回弹动画的时间相匹配
-                    await delayedTask; // 等待原本的延迟动画完成
-                }
-            };
-            await delayedTask;
         }
         #endregion
 

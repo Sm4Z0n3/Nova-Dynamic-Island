@@ -11,8 +11,4 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ModernFlyouts.Core\ModernFlyouts.Core.csproj" />
-  </ItemGroup>
-
 </Project>

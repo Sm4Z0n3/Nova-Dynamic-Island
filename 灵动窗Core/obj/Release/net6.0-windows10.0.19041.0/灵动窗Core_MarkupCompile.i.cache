@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\CSProject\灵动窗Framework\灵动窗Core\obj\Release\net6.0-windows10.0.19041.0\
+C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\obj\Release\net6.0-windows10.0.19041.0\
 灵动窗Core
 none
 false
 TRACE;RELEASE;NET;NET6_0;NETCOREAPP
-E:\CSProject\灵动窗Framework\灵动窗Core\App.xaml
+C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\App.xaml
 257604326
 
 61722254266
-217120503756
+206386967675
 isLand.xaml;MainWindow.xaml;
 
-False
+True
 

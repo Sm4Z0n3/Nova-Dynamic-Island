@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CSProject\\灵动窗Framework\\灵动窗Core\\灵动窗Core.csproj": {}
+    "C:\\Users\\pc\\Desktop\\Nova-Dynamic-Island\\灵动窗Core\\灵动窗Core.csproj": {}
   },
   "projects": {
-    "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\ModernFlyouts.Core.csproj": {
+    "C:\\Users\\pc\\Desktop\\Nova-Dynamic-Island\\灵动窗Core\\灵动窗Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\ModernFlyouts.Core.csproj",
-        "projectName": "ModernFlyouts.Core",
-        "projectPath": "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\ModernFlyouts.Core.csproj",
-        "packagesPath": "D:\\.nuget\\packages",
-        "outputPath": "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\obj\\",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\Nova-Dynamic-Island\\灵动窗Core\\灵动窗Core.csproj",
+        "projectName": "灵动窗Core",
+        "projectPath": "C:\\Users\\pc\\Desktop\\Nova-Dynamic-Island\\灵动窗Core\\灵动窗Core.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\Nova-Dynamic-Island\\灵动窗Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Visual Studio\\SDK\\NuGetPackages"
+          "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -25,157 +25,14 @@
           "net6.0-windows10.0.19041.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\dotnet\\library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0-windows10.0.19041": {
             "targetAlias": "net6.0-windows10.0.19041.0",
             "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0-windows10.0.19041": {
-          "targetAlias": "net6.0-windows10.0.19041.0",
-          "dependencies": {
-            "CommunityToolkit.Mvvm": {
-              "target": "Package",
-              "version": "[8.2.1, )"
-            },
-            "NAudio": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "NPSMLib": {
-              "target": "Package",
-              "version": "[0.9.14, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "System.Management": {
-              "target": "Package",
-              "version": "[7.0.2, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x86",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.19041.29, 10.0.19041.29]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[6.0.24, 6.0.24]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-              "version": "[6.0.24, 6.0.24]"
-            }
-          ],
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.Windows.SDK.NET.Ref": {
-              "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App.WPF": {
-              "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\6.0.416\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win10-arm64": {
-          "#import": []
-        },
-        "win10-x64": {
-          "#import": []
-        },
-        "win10-x86": {
-          "#import": []
-        }
-      }
-    },
-    "E:\\CSProject\\灵动窗Framework\\灵动窗Core\\灵动窗Core.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\CSProject\\灵动窗Framework\\灵动窗Core\\灵动窗Core.csproj",
-        "projectName": "灵动窗Core",
-        "projectPath": "E:\\CSProject\\灵动窗Framework\\灵动窗Core\\灵动窗Core.csproj",
-        "packagesPath": "D:\\.nuget\\packages",
-        "outputPath": "E:\\CSProject\\灵动窗Framework\\灵动窗Core\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Visual Studio\\SDK\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0-windows10.0.19041.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0-windows10.0.19041": {
-            "targetAlias": "net6.0-windows10.0.19041.0",
-            "projectReferences": {
-              "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\ModernFlyouts.Core.csproj": {
-                "projectPath": "E:\\CSProject\\灵动窗Framework\\ModernFlyouts.Core\\ModernFlyouts.Core.csproj"
-              }
-            }
           }
         },
         "warningProperties": {
@@ -207,7 +64,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.19041.29, 10.0.19041.29]"
+              "version": "[10.0.19041.28, 10.0.19041.28]"
             }
           ],
           "frameworkReferences": {
@@ -221,7 +78,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\6.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }
