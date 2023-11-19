@@ -20,6 +20,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using System.Timers;
+using Timer = System.Timers.Timer;
+using System.Net.Http.Headers;
+using Windows.Media.Protection.PlayReady;
+using System.Net.Http;
 
 namespace 灵动窗Core
 {
@@ -39,6 +44,15 @@ namespace 灵动窗Core
             BorderWindow.MouseLeave += BorderWindow_MouseLeave;
             BorderWindow.MouseRightButtonUp += BorderWindow_MouseRightButtonUp;
             Loaded += MainWindow_Loaded;
+            // Create a new Timer object that fires every 1 second
+            Timer timer;
+            timer = new Timer(1000);
+
+            // Hook up the Elapsed event for the timer
+            timer.Elapsed += OnTimedEvent;
+
+            // Start the timer
+            timer.Enabled = true;
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -325,6 +339,35 @@ namespace 灵动窗Core
 
             return queryParameters;
         }
+        #endregion
+
+        #region SpotifyWebAPI
+        HttpClient client = new HttpClient();
+        private async void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            // Set up HttpClient with Spotify Web API endpoint and access token
+            client.BaseAddress = new Uri("https://api.spotify.com/v1/");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "your_access_token_here");
+
+            // Get information about the user's currently playing track
+            HttpResponseMessage response = await client.GetAsync("me/player/currently-playing");
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body and extract the track name and artist name
+                string responseBody = await response.Content.ReadAsStringAsync();
+                dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
+                string trackName = json.item.name;
+                string artistName = json.item.artists[0].name;
+
+                Console.WriteLine($"Currently playing: {trackName} by {artistName}");
+                MessageBox.Show($"Currently playing: {trackName} by {artistName}");
+            }
+            else
+            {
+                Console.WriteLine($"Error getting currently playing track: {response.StatusCode}");
+            }
+        }
+
         #endregion
     }
 }

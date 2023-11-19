@@ -70,3 +70,4 @@ C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\obj\Release\net6.0-windows
 C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\obj\Release\net6.0-windows10.0.19041.0\灵动窗Core.pdb
 C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\obj\Release\net6.0-windows10.0.19041.0\灵动窗Core.genruntimeconfig.cache
 C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\obj\Release\net6.0-windows10.0.19041.0\ref\灵动窗Core.dll
+C:\Users\pc\Desktop\Nova-Dynamic-Island\灵动窗Core\bin\Release\net6.0-windows10.0.19041.0\Newtonsoft.Json.dll

@@ -160,6 +160,7 @@ namespace 灵动窗Core
         {
             SetStartup((bool)StartUP.IsChecked);
         }
+        
     }
 
 
