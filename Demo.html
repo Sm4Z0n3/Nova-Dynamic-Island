@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>POST Form Data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dark1.css">
+    <title>Document</title>
 </head>
+<style>
+        body{
+            background-color: rgb(43, 43, 43);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        *{
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s;
+  overflow: auto;
+}
+
+br{
+  -webkit-user-select: none;
+}
+
+input{
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 4px 16px 4px 16px;
+  width: calc(auto + 35px);
+  height: calc(auto + 35px);
+  border: 0.4px solid rgb(65, 65, 65);
+  background-color: rgba(68, 68, 68, 0.726);
+  border-radius: 5px;
+  flex-flow:row wrap;
+  -webkit-user-select: none;
+  align-content: center;
+}
+input:hover{
+  background-color: rgba(88, 88, 88, 0.726);
+}
+</style>
 <body>
-    <h2>Enter Details</h2>
     <form id="postDataForm" action="http://localhost:24305/" method="post">
         <label for="AnimationTime">Animation Time:</label>
         <input type="text" id="AnimationTime" name="AnimationTime" value="0.7"><br><br>
