@@ -278,7 +278,7 @@ namespace 灵动窗Core
                                 bitmapImage.EndInit();
                             }
 
-                            Color color = (Color)ColorConverter.ConvertFromString("#" + postParams.Get("color"));
+                            Color color = (Color)ColorConverter.ConvertFromString(postParams.Get("color"));
                             SolidColorBrush brush = new SolidColorBrush(color);
 
                             await ShowContent(animationTime, showTime, postParams.Get("body"), bitmapImage, brush, FSize);
