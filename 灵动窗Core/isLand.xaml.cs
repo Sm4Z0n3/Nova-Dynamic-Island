@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -26,7 +27,6 @@ namespace 灵动窗Core
         private DoubleAnimation opacityAnimation;
         private DoubleAnimation widthAnimation;
 
-        bool broder_s = false;
         public isLand()
         {
             InitializeComponent();
@@ -34,8 +34,30 @@ namespace 灵动窗Core
             BorderWindow.MouseEnter += BorderWindow_MouseEnter;
             BorderWindow.MouseLeave += BorderWindow_MouseLeave;
             BorderWindow.MouseRightButtonUp += BorderWindow_MouseRightButtonUp;
+            Loaded += MainWindow_Loaded;
+        }
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            HwndSource source = HwndSource.FromHwnd(new System.Windows.Interop.WindowInteropHelper(this).Handle);
+            source.AddHook(new HwndSourceHook(WndProc));
+        }
+        private void InitializeAnimations()
+        {
+            opacityAnimation = new DoubleAnimation
+            {
+                Duration = TimeSpan.FromSeconds(0.2),
+                From = 1.0,
+                To = 0.5
+            };
+            widthAnimation = new DoubleAnimation
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                From = 100,
+                To = 110
+            };
         }
 
+        #region 供调用的函数
         double aawidth = 120;
         public void SetHeight(double height)
         {
@@ -131,25 +153,9 @@ namespace 灵动窗Core
             };
             await delayedTask;
         }
+        #endregion
 
-
-        private void InitializeAnimations()
-        {
-            opacityAnimation = new DoubleAnimation
-            {
-                Duration = TimeSpan.FromSeconds(0.2),
-                From = 1.0,
-                To = 0.5
-            };
-
-
-            widthAnimation = new DoubleAnimation
-            {
-                Duration = TimeSpan.FromSeconds(0.3),
-                From = 100,
-                To = 110
-            };
-        }
+        #region 事件
 
         private void BorderWindow_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -172,13 +178,11 @@ namespace 灵动窗Core
                 {
                     widthAnimation.From = aawidth;
                     widthAnimation.To = 35;
-                    broder_s = false;
                 }
                 else
                 {
                     widthAnimation.From = 35;
                     widthAnimation.To = aawidth;
-                    broder_s = true;
                 }
                 BorderWindow.BeginAnimation(Border.WidthProperty, widthAnimation);
             }
@@ -196,5 +200,39 @@ namespace 灵动窗Core
             e.Cancel = true;
             //禁止关闭
         }
+        #endregion
+
+        #region 媒体
+        private const int WM_APPCOMMAND = 0x319;
+        private const int APPCOMMAND_MEDIA_PLAY_PAUSE = 14;
+        private const int APPCOMMAND_MEDIA_NEXTTRACK = 11;
+        private const int APPCOMMAND_MEDIA_PREVIOUSTRACK = 12;
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_APPCOMMAND)
+            {
+                int cmd = ((int)wParam >> 16) & 0xFFF;
+
+                switch (cmd)
+                {
+                    case APPCOMMAND_MEDIA_PLAY_PAUSE:
+                        ShowContent(0.6,5,"暂停 | 开始播放",new System.Windows.Controls.Image(),Brushes.White);
+                        // 可以在这里添加你的逻辑
+                        break;
+                    case APPCOMMAND_MEDIA_NEXTTRACK:
+                        ShowContent(0.6, 5, "下一首", new System.Windows.Controls.Image(), Brushes.White);
+                        // 可以在这里添加你的逻辑
+                        break;
+                    case APPCOMMAND_MEDIA_PREVIOUSTRACK:
+                        ShowContent(0.6, 5, "上一首", new System.Windows.Controls.Image(), Brushes.White);
+                        // 可以在这里添加你的逻辑
+                        break;
+                        // 可以添加其他媒体键的处理逻辑
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+        #endregion
     }
 }

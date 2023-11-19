@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio Version 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernFlyouts.Core", "..\灵动窗Framework\ModernFlyouts.Core\ModernFlyouts.Core.csproj", "{A4091F63-B687-48D4-BB0E-584E825FE632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernFlyouts.Core", "ModernFlyouts.Core\ModernFlyouts.Core.csproj", "{A4091F63-B687-48D4-BB0E-584E825FE632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "灵动窗Core", "灵动窗Core\灵动窗Core.csproj", "{E065428C-C855-469E-8EFA-4206F3A3E8AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "灵动窗Core", "灵动窗Core\灵动窗Core.csproj", "{E065428C-C855-469E-8EFA-4206F3A3E8AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

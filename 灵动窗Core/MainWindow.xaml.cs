@@ -38,8 +38,6 @@ namespace 灵动窗Core
             isLandWindow.Show();
             CreateNotifyIcon();
             Closing += MainWindow_Closing;
-            //Color backgroundColor = SystemParameters.WindowGlassColor;
-            //this.Background = new SolidColorBrush(backgroundColor);
         }
         private void CreateNotifyIcon()
         {
@@ -51,7 +49,7 @@ namespace 灵动窗Core
             notifyIcon.TrayMouseDoubleClick += NotifyIcon_DoubleClick;
             notifyIcon.TrayLeftMouseUp += NotifyIcon_Click;
         }
-
+        #region 事件
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
         {
             System.Environment.Exit(0);
@@ -105,6 +103,7 @@ namespace 灵动窗Core
             Window_Radius.Value = 15;
             Window_Top.Value = 20;
         }
+        #endregion
     }
 
 
