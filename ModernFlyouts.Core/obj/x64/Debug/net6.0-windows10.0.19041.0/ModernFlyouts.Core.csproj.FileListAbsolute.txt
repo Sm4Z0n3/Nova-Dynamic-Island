@@ -1,0 +1,12 @@
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\bin\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.deps.json
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\bin\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.dll
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\bin\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.pdb
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.csproj.AssemblyReference.cache
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.AssemblyInfoInputs.cache
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.AssemblyInfo.cs
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.csproj.CoreCompileInputs.cache
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.dll
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\refint\ModernFlyouts.Core.dll
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ModernFlyouts.Core.pdb
+E:\CSProject\ModernFlyouts-main\ModernFlyouts.Core\obj\x64\Debug\net6.0-windows10.0.19041.0\ref\ModernFlyouts.Core.dll
