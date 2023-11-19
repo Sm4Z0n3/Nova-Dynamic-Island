@@ -16,6 +16,9 @@ using System.Drawing;
 using Brushes = System.Windows.Media.Brushes;
 using System.Runtime.CompilerServices;
 using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO;
 //using ModernFlyouts.Core;
 
 namespace 灵动窗Core
@@ -38,6 +41,7 @@ namespace 灵动窗Core
             isLandWindow.Show();
             CreateNotifyIcon();
             Closing += MainWindow_Closing;
+            StartUP.IsChecked = IsStartupEnabled();
         }
         private void CreateNotifyIcon()
         {
@@ -105,6 +109,57 @@ namespace 灵动窗Core
             Window_Top.Value = 20;
         }
         #endregion
+        static void SetStartup(bool addToStartup)
+        {
+            try
+            {
+                string appName = Process.GetCurrentProcess().ProcessName;
+                string appPath = Process.GetCurrentProcess().MainModule.FileName;
+
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                if (addToStartup)
+                {
+                    rk.SetValue(appName, appPath);
+                    Console.WriteLine("Application added to startup.");
+                }
+                else
+                {
+                    rk.DeleteValue(appName, false);
+                    Console.WriteLine("Application removed from startup.");
+                }
+
+                rk.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error setting startup registry: " + ex.Message);
+            }
+        }
+        static bool IsStartupEnabled()
+        {
+            string appName = Process.GetCurrentProcess().ProcessName;
+            MessageBox.Show(Directory.GetCurrentDirectory() + "\\"+ appName + ".exe");
+            try
+            {
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                object value = rk.GetValue(appName);
+
+                rk.Close();
+
+                return value != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error checking startup registry: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void StartUP_Checked(object sender, RoutedEventArgs e)
+        {
+            SetStartup((bool)StartUP.IsChecked);
+        }
     }
 
 
