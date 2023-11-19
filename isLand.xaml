@@ -12,7 +12,7 @@
         Foreground="{x:Null}" 
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" 
-        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Loaded="Window_Loaded" Width="1920" Height="1080">
+        ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Loaded="Window_Loaded" Width="1920" Height="1080" Closing="Window_Closing">
     <Border 
         x:Name="BorderWindow" 
         Background="#FF020202" 
@@ -22,7 +22,7 @@
         HorizontalAlignment="Center" 
         VerticalAlignment="Top">
 
-        <Grid>
+        <Grid x:Name="BorderBody">
 
         </Grid>
     </Border>
