@@ -44,7 +44,7 @@ namespace 灵动窗Core
             notifyIcon = new TaskbarIcon
             {
                 Icon = System.Drawing.SystemIcons.Application,
-                ToolTipText = "Nova灵动窗 | 单击打开设置 | 双击关闭程序"
+                ToolTipText = "Nova灵动窗 | 单击打开设置 | 双击关闭程序\nhttp://*:24305/ API监听中..."
             };
             notifyIcon.TrayMouseDoubleClick += NotifyIcon_DoubleClick;
             notifyIcon.TrayLeftMouseUp += NotifyIcon_Click;
@@ -91,8 +91,9 @@ namespace 灵动窗Core
                 0.6,
                 5,
                 "你好世界",
-                new System.Windows.Controls.Image(),
-                Brushes.White
+                new BitmapImage(),
+                Brushes.White,
+                16
                 );
         }
 

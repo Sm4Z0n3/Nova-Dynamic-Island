@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +20,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace 灵动窗Core
@@ -36,11 +42,14 @@ namespace 灵动窗Core
             BorderWindow.MouseRightButtonUp += BorderWindow_MouseRightButtonUp;
             Loaded += MainWindow_Loaded;
         }
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            HwndSource source = HwndSource.FromHwnd(new System.Windows.Interop.WindowInteropHelper(this).Handle);
-            source.AddHook(new HwndSourceHook(WndProc));
+            await StartServerAsync();
         }
+
+        #region 供调用的函数
+        double aawidth = 120;
         private void InitializeAnimations()
         {
             opacityAnimation = new DoubleAnimation
@@ -56,9 +65,6 @@ namespace 灵动窗Core
                 To = 110
             };
         }
-
-        #region 供调用的函数
-        double aawidth = 120;
         public void SetHeight(double height)
         {
             BorderWindow.Height = height;
@@ -78,7 +84,7 @@ namespace 灵动窗Core
         }
 
         bool isLabelVisible = false;
-        public async Task ShowContent(double AnimationTime, int ShowTime, string body, Image icon, Brush color)
+        public async Task ShowContent(double AnimationTime, int ShowTime, string body, BitmapImage icon, Brush color,int FSize)
         {
             double oldhei = BorderWindow.Height;
             double oldwid = BorderWindow.Width;
@@ -110,12 +116,28 @@ namespace 灵动窗Core
             Label newLabel = new Label
             {
                 Content = body,
-                FontSize = 16,
+                FontSize = FSize,
                 Margin = new Thickness(20),
-                Foreground = color
+                Foreground = color,
+                Height = 110
             };
 
-            BorderBody.Children.Add(newLabel);
+            Image newImage = new Image
+            {
+                Source = icon,
+                Width = 88,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            StackPanel stackPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(20)
+            };
+
+            stackPanel.Children.Add(newImage);
+            stackPanel.Children.Add(newLabel);
+            BorderBody.Children.Add(stackPanel);
 
             async Task DelayedAnimation()
             {
@@ -128,7 +150,7 @@ namespace 灵动窗Core
                     ContantWidth.From = 500;
                     BorderWindow.BeginAnimation(Border.HeightProperty, ContantHeight);
                     BorderWindow.BeginAnimation(Border.WidthProperty, ContantWidth);
-                    BorderBody.Children.Remove(newLabel);
+                    BorderBody.Children.Remove(stackPanel);
                     isLabelVisible = false;
                 }
             }
@@ -202,36 +224,94 @@ namespace 灵动窗Core
         }
         #endregion
 
-        #region 媒体
-        private const int WM_APPCOMMAND = 0x319;
-        private const int APPCOMMAND_MEDIA_PLAY_PAUSE = 14;
-        private const int APPCOMMAND_MEDIA_NEXTTRACK = 11;
-        private const int APPCOMMAND_MEDIA_PREVIOUSTRACK = 12;
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        //http://localhost:24305/
+        #region API接口
+        public async Task StartServerAsync()
         {
-            if (msg == WM_APPCOMMAND)
-            {
-                int cmd = ((int)wParam >> 16) & 0xFFF;
+            HttpListener listener = new HttpListener();
+            listener.Prefixes.Add("http://localhost:24305/");
+            listener.Start();
 
-                switch (cmd)
+            Console.WriteLine("Server listening on port 24305...");
+
+            while (true)
+            {
+                HttpListenerContext context = await listener.GetContextAsync();
+                ProcessRequest(context);
+            }
+        }
+
+        public async void ProcessRequest(HttpListenerContext context)
+        {
+            HttpListenerRequest request = context.Request;
+
+            try
+            {
+                if (request.HttpMethod == "POST")
                 {
-                    case APPCOMMAND_MEDIA_PLAY_PAUSE:
-                        ShowContent(0.6,5,"暂停 | 开始播放",new System.Windows.Controls.Image(),Brushes.White);
-                        // 可以在这里添加你的逻辑
-                        break;
-                    case APPCOMMAND_MEDIA_NEXTTRACK:
-                        ShowContent(0.6, 5, "下一首", new System.Windows.Controls.Image(), Brushes.White);
-                        // 可以在这里添加你的逻辑
-                        break;
-                    case APPCOMMAND_MEDIA_PREVIOUSTRACK:
-                        ShowContent(0.6, 5, "上一首", new System.Windows.Controls.Image(), Brushes.White);
-                        // 可以在这里添加你的逻辑
-                        break;
-                        // 可以添加其他媒体键的处理逻辑
+                    using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
+                    {
+                        string requestBody = await reader.ReadToEndAsync();
+                        Console.WriteLine("Received POST data: " + requestBody);
+
+                        var postParams = ParseQueryString(requestBody);
+
+                        if (postParams.Get("ShowTime") != null &&
+                            postParams.Get("AnimationTime") != null &&
+                            postParams.Get("body") != null &&
+                            postParams.Get("icon") != null &&
+                            postParams.Get("color") != null &&
+                            postParams.Get("fsize") != null)
+                        {
+                            int showTime = int.Parse(postParams.Get("ShowTime"));
+                            int FSize = int.Parse(postParams.Get("fsize"));
+                            double animationTime = double.Parse(postParams.Get("AnimationTime"));
+                            string base64String = postParams.Get("icon").Split(',')[1];
+
+                            BitmapImage bitmapImage = new BitmapImage();
+                            byte[] bytes = Convert.FromBase64String(base64String);
+                            using (MemoryStream stream = new MemoryStream(bytes))
+                            {
+                                bitmapImage.BeginInit();
+                                bitmapImage.StreamSource = stream;
+                                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                                bitmapImage.EndInit();
+                            }
+
+                            Color color = (Color)ColorConverter.ConvertFromString("#" + postParams.Get("color"));
+                            SolidColorBrush brush = new SolidColorBrush(color);
+
+                            await ShowContent(animationTime, showTime, postParams.Get("body"), bitmapImage, brush, FSize);
+
+                            HttpListenerResponse response = context.Response;
+                            string responseString = "200";
+                            byte[] buffer = Encoding.UTF8.GetBytes(responseString);
+                            response.ContentLength64 = buffer.Length;
+                            response.OutputStream.Write(buffer, 0, buffer.Length);
+                            response.OutputStream.Close();
+                        }
+                    }
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public NameValueCollection ParseQueryString(string queryString)
+        {
+            NameValueCollection queryParameters = new NameValueCollection();
+
+            foreach (var kvp in queryString.Split('&'))
+            {
+                var keyValue = kvp.Split('=');
+                if (keyValue.Length == 2)
+                {
+                    queryParameters[keyValue[0]] = System.Net.WebUtility.UrlDecode(keyValue[1]);
                 }
             }
 
-            return IntPtr.Zero;
+            return queryParameters;
         }
         #endregion
     }

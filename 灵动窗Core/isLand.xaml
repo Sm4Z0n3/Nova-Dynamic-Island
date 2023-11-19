@@ -22,8 +22,6 @@
         HorizontalAlignment="Center" 
         VerticalAlignment="Top">
 
-        <Grid x:Name="BorderBody">
-
-        </Grid>
+        <Grid x:Name="BorderBody"/>
     </Border>
 </Window>
