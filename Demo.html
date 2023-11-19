@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dark1.css">
     <title>Document</title>
 </head>
 <style>
@@ -45,27 +44,65 @@ input:hover{
   background-color: rgba(88, 88, 88, 0.726);
 }
 </style>
-<body>
-    <form id="postDataForm" action="http://localhost:24305/" method="post">
+<body><!--action="http://localhost:24305/" method="post"-->
+    <form id="postDataForm" action="http://localhost:24305/" method="post" target="_blank">
         <label for="AnimationTime">Animation Time:</label>
         <input type="text" id="AnimationTime" name="AnimationTime" value="0.7"><br><br>
-
+    
         <label for="ShowTime">Show Time:</label>
         <input type="text" id="ShowTime" name="ShowTime" value="5"><br><br>
-
+    
         <label for="body">Body:</label>
         <input type="text" id="body" name="body" value="Hello World"><br><br>
-
+    
         <label for="color">Color:</label>
-        <input type="text" id="color" name="color" value="#fff"><br><br>
-
+        <input type="color" id="colorPicker" name="color" value="#fff"><br><br>
+    
         <label for="icon">Icon (Base64):</label>
         <input type="text" id="icon" name="icon" value="data:image/png;base64,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"><br><br>
-
+    
         <label for="icon">FontSize:</label>
         <input type="text" id="fsize" name="fsize" value="16"><br><br>
-
-        <input type="submit" value="Submit" id="submitButton">
+    
+        <input type="button" value="Submit" id="submitButton">
     </form>
+    
+    <script>
+    document.getElementById('submitButton').addEventListener('click', function() {
+        const form = document.getElementById('postDataForm');
+        const formData = new FormData(form);
+
+        const newWindow = window.open('', 'myFormWindow');
+
+        const newDocument = newWindow.document;
+        const newForm = newDocument.createElement('form');
+        newForm.method = 'post';
+        newForm.action = 'http://localhost:24305/';
+        newForm.target = '_self';
+        newDocument.body.appendChild(newForm);
+
+        formData.forEach((value, key) => {
+            const input = newDocument.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            newForm.appendChild(input);
+        });
+
+        newForm.submit();
+
+        setTimeout(function() {
+            newWindow.close();
+        }, 3000);
+    });
+
+    // Update color input value when color is changed in the color picker
+    const colorPicker = document.getElementById('colorPicker');
+    colorPicker.addEventListener('input', function(event) {
+        const colorValue = event.target.value;
+        document.getElementById('color').value = colorValue;
+    });
+    </script>
+    
 </body>
 </html>
