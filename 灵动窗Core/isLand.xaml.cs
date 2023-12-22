@@ -49,7 +49,8 @@ namespace 灵动窗Core
         }
 
         #region 供调用的函数
-        double aawidth = 120;
+        double aawidth = 20;
+        double aaheight = 20;
         private void InitializeAnimations()
         {
             opacityAnimation = new DoubleAnimation
@@ -68,6 +69,7 @@ namespace 灵动窗Core
         public void SetHeight(double height)
         {
             BorderWindow.Height = height;
+            aaheight = height;
         }
         public void SetWidth(double width)
         {
@@ -206,15 +208,24 @@ namespace 灵动窗Core
                     widthAnimation.From = 35;
                     widthAnimation.To = aawidth;
                 }
+                // 创建一个 BounceEase 对象
+                BounceEase bounce = new BounceEase();
+                // 设置缓动模式为 EaseOut，表示动画在结束时回弹
+                bounce.EasingMode = EasingMode.EaseOut;
+                // 设置回弹次数为 3
+                bounce.Bounces = 3;
+                // 设置回弹强度为 2，值越大，回弹越小
+                bounce.Bounciness = 5;
+                // 将 BounceEase 对象赋值给动画的 EasingFunction 属性
+                widthAnimation.EasingFunction = bounce;
                 BorderWindow.BeginAnimation(Border.WidthProperty, widthAnimation);
             }
-
-
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Top = 20;
+            this.Top = 14;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

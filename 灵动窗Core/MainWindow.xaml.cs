@@ -29,10 +29,10 @@ namespace 灵动窗Core
     public partial class MainWindow : Window
     {
         private isLand isLandWindow = new isLand();
-        double widthA = 120;
-        double heightA = 35;
-        double radiusA = 15;
-        double topA = 20;
+        double widthA = 20;
+        double heightA = 20;
+        double radiusA = 8;
+        double topA = 14;
         private TaskbarIcon notifyIcon;
 
         public MainWindow()
@@ -139,7 +139,7 @@ namespace 灵动窗Core
         static bool IsStartupEnabled()
         {
             string appName = Process.GetCurrentProcess().ProcessName;
-            MessageBox.Show(Directory.GetCurrentDirectory() + "\\"+ appName + ".exe");
+            //MessageBox.Show(Directory.GetCurrentDirectory() + "\\"+ appName + ".exe");
             try
             {
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
